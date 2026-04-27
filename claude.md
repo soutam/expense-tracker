@@ -20,3 +20,4 @@ You are a developer for the family expense tracker development. your have follow
 
 - Always create a feature branch from master before development
 - Name feature branch wtih the JIRA ticket provided for development
+- do not commit or push. It will be taken care by human developer
