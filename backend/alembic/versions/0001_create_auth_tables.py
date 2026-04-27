@@ -9,7 +9,6 @@ from typing import Sequence, Union
 
 import sqlalchemy as sa
 from alembic import op
-from sqlalchemy.dialects import postgresql
 
 revision: str = "0001"
 down_revision: Union[str, None] = None
@@ -20,7 +19,7 @@ depends_on: Union[str, Sequence[str], None] = None
 def upgrade() -> None:
     op.create_table(
         "users",
-        sa.Column("id", postgresql.UUID(as_uuid=True), nullable=False),
+        sa.Column("id", sa.CHAR(36), nullable=False),
         sa.Column("email", sa.String(255), nullable=False),
         sa.Column("password_hash", sa.String(255), nullable=True),
         sa.Column("oauth_provider", sa.String(50), nullable=True),
@@ -38,9 +37,9 @@ def upgrade() -> None:
 
     op.create_table(
         "household",
-        sa.Column("id", postgresql.UUID(as_uuid=True), nullable=False),
-        sa.Column("member1_id", postgresql.UUID(as_uuid=True), nullable=False),
-        sa.Column("member2_id", postgresql.UUID(as_uuid=True), nullable=True),
+        sa.Column("id", sa.CHAR(36), nullable=False),
+        sa.Column("member1_id", sa.CHAR(36), nullable=False),
+        sa.Column("member2_id", sa.CHAR(36), nullable=True),
         sa.Column("member1_name", sa.String(100), nullable=False),
         sa.Column("member2_name", sa.String(100), nullable=True),
         sa.Column("currency", sa.String(3), nullable=False),
@@ -51,10 +50,10 @@ def upgrade() -> None:
 
     op.create_table(
         "categories",
-        sa.Column("id", postgresql.UUID(as_uuid=True), nullable=False),
-        sa.Column("household_id", postgresql.UUID(as_uuid=True), nullable=False),
+        sa.Column("id", sa.CHAR(36), nullable=False),
+        sa.Column("household_id", sa.CHAR(36), nullable=False),
         sa.Column("name", sa.String(100), nullable=False),
-        sa.Column("is_default", sa.Boolean(), nullable=False, server_default=sa.text("true")),
+        sa.Column("is_default", sa.Boolean(), nullable=False, server_default=sa.text("1")),
         sa.Column(
             "created_at",
             sa.DateTime(timezone=True),
@@ -67,11 +66,11 @@ def upgrade() -> None:
 
     op.create_table(
         "refresh_tokens",
-        sa.Column("id", postgresql.UUID(as_uuid=True), nullable=False),
-        sa.Column("user_id", postgresql.UUID(as_uuid=True), nullable=False),
+        sa.Column("id", sa.CHAR(36), nullable=False),
+        sa.Column("user_id", sa.CHAR(36), nullable=False),
         sa.Column("token_hash", sa.String(255), nullable=False),
         sa.Column("expires_at", sa.DateTime(timezone=True), nullable=False),
-        sa.Column("revoked", sa.Boolean(), nullable=False, server_default=sa.text("false")),
+        sa.Column("revoked", sa.Boolean(), nullable=False, server_default=sa.text("0")),
         sa.ForeignKeyConstraint(["user_id"], ["users.id"], ondelete="CASCADE"),
         sa.PrimaryKeyConstraint("id"),
     )

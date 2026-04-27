@@ -41,14 +41,26 @@ export default function RegisterStep2Page() {
   const onSubmit = async (step2Data: RegisterStep2Values) => {
     setApiError(null);
     try {
-      const { data: user } = await authApi.register(step1Data, step2Data);
+      // Convert empty strings to null so Pydantic EmailStr validation passes
+      const cleanedStep2 = {
+        ...step2Data,
+        partner_email: step2Data.partner_email || null,
+        member2_display_name: step2Data.member2_display_name || null,
+      };
+      const { data: user } = await authApi.register(step1Data, cleanedStep2);
       setUser(user);
       navigate("/dashboard");
     } catch (err) {
       if (axios.isAxiosError(err) && err.response?.status === 409) {
         setApiError("This email is already registered. Please sign in instead.");
       } else if (axios.isAxiosError(err) && err.response?.data?.detail) {
-        setApiError(err.response.data.detail);
+        const detail = err.response.data.detail;
+        // FastAPI validation errors return detail as an array of objects
+        setApiError(
+          Array.isArray(detail)
+            ? detail.map((e: { msg: string }) => e.msg).join(", ")
+            : String(detail)
+        );
       } else {
         setApiError("An unexpected error occurred. Please try again.");
       }
