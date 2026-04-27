@@ -1,2 +1,1 @@
 - committ the code in github with message and push to the remote repo
-- create PR to the master branch from feature branch
