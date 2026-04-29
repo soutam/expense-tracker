@@ -37,5 +37,7 @@ class LoginRequest(BaseModel):
 class UserOut(BaseModel):
     id: uuid.UUID
     email: str
+    first_name: str
+    last_name: str
 
     model_config = ConfigDict(from_attributes=True)

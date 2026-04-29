@@ -39,4 +39,6 @@ export type RegisterStep2Values = z.infer<typeof registerStep2Schema>;
 export interface AuthUser {
   id: string;
   email: string;
+  first_name: string;
+  last_name: string;
 }
