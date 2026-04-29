@@ -104,3 +104,6 @@ cd frontend && npm run build
 # Run tests
 cd frontend && npm test
 ```
+# Guidlines to start the backend and frontend server
+
+use start-servers.ps1 located in the project root to start the servers

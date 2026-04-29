@@ -7,6 +7,7 @@ import DashboardPage from "./pages/DashboardPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterStep1Page from "./pages/RegisterStep1Page";
 import RegisterStep2Page from "./pages/RegisterStep2Page";
+import SettingsPage from "./pages/SettingsPage";
 import { useAuthStore } from "./store/authStore";
 
 export default function App() {
@@ -48,6 +49,14 @@ export default function App() {
           element={
             <ProtectedRoute>
               <DashboardPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute>
+              <SettingsPage />
             </ProtectedRoute>
           }
         />
