@@ -18,14 +18,14 @@ DEFAULT_CATEGORIES = [
     "Dining Out",
     "Utilities",
     "Rent/Mortgage",
-    "Transportation",
+    "Transport",
+    "Travel",
     "Entertainment",
     "Healthcare",
-    "Clothing",
-    "Personal Care",
+    "Shopping",
     "Education",
-    "Travel",
-    "Miscellaneous",
+    "Subscriptions",
+    "Other",
 ]
 
 # Pre-hashed dummy used to keep response time constant regardless of whether email exists

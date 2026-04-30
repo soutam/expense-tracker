@@ -44,8 +44,8 @@ export default function RegisterStep2Page() {
       // Convert empty strings to null so Pydantic EmailStr validation passes
       const cleanedStep2 = {
         ...step2Data,
-        partner_email: step2Data.partner_email || null,
-        member2_display_name: step2Data.member2_display_name || null,
+        partner_email: step2Data.partner_email || undefined,
+        member2_display_name: step2Data.member2_display_name || undefined,
       };
       const { data: user } = await authApi.register(step1Data, cleanedStep2);
       setUser(user);
